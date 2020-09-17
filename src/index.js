@@ -1,4 +1,4 @@
-let breeds = []
+
 document.addEventListener('DOMContentLoaded', function(e){
     console.log('%c HI', 'color: firebrick')
     const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
@@ -6,41 +6,35 @@ document.addEventListener('DOMContentLoaded', function(e){
     const dogUl = document.querySelector('#dog-breeds')
     
     dogUl.addEventListener('click', function(e){
-        // debugger
         if(e.target.matches('li')){
             e.target.style.color = 'red'
         }
     })
     
     const getDogPics = () => {
-        fetch("https://dog.ceo/api/breeds/image/random/4")
+        fetch(`${imgUrl}`)
         .then(function(response){
             return response.json();
         })
         .then(function(json){
            createPics(json.message)
-           
-            // console.log(json)
         })
     }
     
     const getDogBreeds = () => {
-        fetch("https://dog.ceo/api/breeds/list/all")
+        fetch(`${breedUrl}`)
         .then(function(response){
             return response.json();
         })
         .then(function(json){
             addDogBreeds(json.message)
-            addBreedSelectListener()
-        
-            // console.log(json)
         })
     }
     
     const createPics = pics => {
         pics.forEach((pic) => {
-            const dogUl = document.querySelector('#dog-breeds')
-            const dogImageLi = document.createElement('li');
+            const dogUl = document.querySelector('#dog-image-container')
+            const dogImageLi = document.createElement('p');
             dogImageLi.innerHTML = `
                 <img class='dog-image' src=${pic}>
             `
@@ -63,35 +57,29 @@ document.addEventListener('DOMContentLoaded', function(e){
             } else if (dogBreedLi.innerText[0] === 'd'){
                 dogBreedLi.classList.add('d-name')
             } 
-            
-
-
-            // sortBreeds;
-            // const dropDown = document.querySelector("#breed-dropdown")
-            // if(dropDown.value === 'a'){
-            //     document.querySelectorAll('.a-name')
-            // } else if(dropDown.value ===  'b'){
-            //         document.querySelectorAll('.b-name')
-            // } else if(dropDown.value ===  'c'){
-            //     document.querySelectorAll('.c-name')
-            //     }
-            // }
         }
        
     }
-    function selectBreedsStartingWith(letter) {
-        addDogBreeds(breeds.filter(breed => breed.startsWith(letter)));
-      }
-      
-      function addBreedSelectListener() {
-        let breedDropdown = document.querySelector('#breed-dropdown');
-        breedDropdown.addEventListener('change', function (event) {
-          selectBreedsStartingWith(event.target.value);
-        });
-      }
+
+    const breedSelectListener = (data) => {
+        const dropDown = document.querySelector("#breed-dropdown")
+            dropDown.addEventListener('change', function(e){
+               
+                    let namesToHide = document.querySelectorAll(`li:not(.${e.target.value}-name)`);
+                    let namesToShow = document.querySelectorAll(`li.${e.target.value}-name`);
+                    for(let dog of namesToHide){
+                        dog.style.visibility = 'hidden'
+                    }
+                    for(let dog of namesToShow){
+                        dog.style.visibility = 'visible'
+                    }
+            })
+        }
+        
+
 
     getDogPics()
     getDogBreeds()
-    
+    breedSelectListener()
 })
 
