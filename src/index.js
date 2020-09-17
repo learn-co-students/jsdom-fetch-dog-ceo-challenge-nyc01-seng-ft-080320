@@ -62,7 +62,8 @@ document.addEventListener('DOMContentLoaded', function(e){
                 dogBreedLi.classList.add('c-name')
             } else if (dogBreedLi.innerText[0] === 'd'){
                 dogBreedLi.classList.add('d-name')
-            }
+            } 
+            
 
             // sortBreeds;
             // const dropDown = document.querySelector("#breed-dropdown")
