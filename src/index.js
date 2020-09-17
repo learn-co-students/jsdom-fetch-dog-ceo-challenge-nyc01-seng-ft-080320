@@ -41,21 +41,41 @@ document.addEventListener('DOMContentLoaded', function(e){
             dogUl.append(dogImageLi)
         })
     }
-    
+ 
     const addDogBreeds = (breeds) => {
+        const dogUl = document.querySelector('#dog-breeds');
+
+        const dogDivA = document.createElement('div')
+        dogDivA.classList.add('a-name')
+
+        const dogDivB = document.createElement("div")
+        dogDivB.classList.add('b-name')
+
+        const dogDivC = document.createElement("div")
+        dogDivC.classList.add('c-name')
+
+        const dogDivD = document.createElement("div")
+        dogDivD.classList.add('d-name')
+
+        dogUl.append(dogDivA)
+        dogUl.append(dogDivB)
+        dogUl.append(dogDivC)
+        dogUl.append(dogDivD)
         for(let breed in breeds){
-            const dogUl = document.querySelector('#dog-breeds');
+        
             const dogBreedLi = document.createElement('li');
             dogBreedLi.innerText = breed;
-            dogUl.append(dogBreedLi);
             if(dogBreedLi.innerText[0] === 'a'){
-                dogBreedLi.classList.add('a-name')
-            } else if (dogBreedLi.innerText[0] === 'b'){
-                dogBreedLi.classList.add('b-name')
-            } else if (dogBreedLi.innerText[0] === 'c'){
-                dogBreedLi.classList.add('c-name')
-            } else if (dogBreedLi.innerText[0] === 'd'){
-                dogBreedLi.classList.add('d-name')
+                dogDivA.appendChild(dogBreedLi)
+            } 
+            if (dogBreedLi.innerText[0] === 'b'){
+                dogDivB.appendChild(dogBreedLi)
+            } 
+            if (dogBreedLi.innerText[0] === 'c'){
+                dogDivC.appendChild(dogBreedLi)
+            } 
+            if (dogBreedLi.innerText[0] === 'd'){
+                dogDivD.appendChild(dogBreedLi)
             } 
         }
        
@@ -64,15 +84,12 @@ document.addEventListener('DOMContentLoaded', function(e){
     const breedSelectListener = (data) => {
         const dropDown = document.querySelector("#breed-dropdown")
             dropDown.addEventListener('change', function(e){
-               
-                    let namesToHide = document.querySelectorAll(`li:not(.${e.target.value}-name)`);
-                    let namesToShow = document.querySelectorAll(`li.${e.target.value}-name`);
-                    for(let dog of namesToHide){
-                        dog.style.visibility = 'hidden'
-                    }
-                    for(let dog of namesToShow){
-                        dog.style.visibility = 'visible'
-                    }
+                    let namesToHide = document.querySelectorAll(`ul div:not(.${e.target.value}-name)`);
+                    let namesToShow = document.querySelector(`div.${e.target.value}-name`);
+                        for(let nameDiv of namesToHide){
+                            nameDiv.style.display = "none"
+                        }
+                        namesToShow.style.display = 'inline'   
             })
         }
         
