@@ -31,9 +31,9 @@ const fetchDogBreeds = () => {
     fetch(breedUrl)
         .then(resp => resp.json())
         .then(json => {
-            breeds = Object.keys(json.message)
+            const breeds = Object.keys(json.message)
             renderDogBreeds(breeds)
-            addSelectListener()
+            addSelectListener(breeds)
         })
 }
 
@@ -56,15 +56,15 @@ const clickHandler = () => {
     })
 }
 
-const addSelectListener = () => {
+const addSelectListener = (collection) => {
     let breedDropdown = document.querySelector('#breed-dropdown')
     breedDropdown.addEventListener('change', function(e){
         let selected = e.target.value
         if(selected === " "){
-            renderDogBreeds(breeds)
+            renderDogBreeds(collection)
         } else {
             breedList.innerHTML = ""
-            renderDogBreeds(breeds.filter(breed => breed.startsWith(selected)))
+            renderDogBreeds(collection.filter(breed => breed.startsWith(selected)))
         }
     })
 }
