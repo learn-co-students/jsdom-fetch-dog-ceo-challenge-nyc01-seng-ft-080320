@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function(e){
             } 
             
 
+
             // sortBreeds;
             // const dropDown = document.querySelector("#breed-dropdown")
             // if(dropDown.value === 'a'){
